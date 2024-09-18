@@ -3,7 +3,7 @@ import video1 from "../assets/video1.mp4"
 import video2 from "../assets/video2.mp4"
 const DataSection = () => {
   return (
-    <div className="flex flex-col mt-6 lg:mt-20 items-center">
+    <div className="flex flex-col mt-6 lg:mt-20 items-center" id="ds">
         <h1 className="text-4xl sm:text-6xl lg:text-7xl text-center tracking-wide">
             Feel the virtual world on 
             <span className="bg-gradient-to-r from-cyan-600 to-orange-400 text-transparent bg-clip-text">{" "}your  fingertips</span>

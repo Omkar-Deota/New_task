@@ -1,18 +1,17 @@
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import logo from "../assets/logo.png";
-
 const Navbar = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
-
+  
   const toggleNavbar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
   };
    const navItems = [
-    { label: "Features", href: "#" },
-    { label: "Workflow", href: "#" },
-    { label: "Pricing", href: "#" },
-    { label: "Testimonials", href: "#" },
+    { label: "Features", href: "#fs" },
+    { label: "Workflow", href: "#ds" },
+    { label: "Pricing", href: "#ps" },
+    { label: "Contacts", href: "#ct" },
   ];
   return (
     <nav className="sticky top-0 z-50 py-3 backdrop-blur-lg border-b border-neutral-700/80">
@@ -69,6 +68,7 @@ const Navbar = () => {
           </div>
         )}
       </div>
+
     </nav>
   );
 };
