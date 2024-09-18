@@ -16,7 +16,7 @@ function App() {
     <Pricing />
     <Footer />
     </div>
-    <div className="flex justify-center items-center mt-auto " id="ct">&copy; Developed By Omkar | xyz.techy@cient.in | +0558264 123</div>
+    <div className="flex justify-center items-center mt-auto sm:text-xl sm:mt-10 lg:text-xl " id="ct">&copy; Developed By Omkar | xyz.techy@cient.in | +0558264 123</div>
     </>
   )
 }
