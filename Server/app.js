@@ -60,6 +60,20 @@ app.post("/authenticate-user", async (req, res) => {
   }
 });
 
+app.get("/pricing-options", async(req, res)=>{
+  try{
+    const data=await Pricing.find();
+    if(data){
+      return res.status(200).json(data);
+    }
+    else{
+      return res.status(400).json({message:"Error Fetching data"});
+    }
+  }catch(error){
+    res.status(500).json({message:"Error met"});
+  }
+})
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const Conditions = Yup.object().shape({
   name: Yup.string()
     .required("Name is required")
