@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +19,7 @@ const Authentication = () => {
   const [Errors, setErrors] = useState({ username: "", password: "" });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const [items, setItems] = useState([]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +41,8 @@ const Authentication = () => {
       );
       setLoading(false);
       setMessage(`${response.data.message}`);
-
+      const newUser=response.data.name;
+      localStorage.setItem("newUser",newUser);
       setTimeout(() => {
         navigate("/dashboard");
       }, 2000);
