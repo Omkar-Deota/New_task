@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
-
+import { Navigate, useNavigate } from "react-router-dom";
 const Conditions = Yup.object().shape({
   name: Yup.string()
     .required("Name is required")
@@ -20,7 +20,7 @@ const RegisterUser = () => {
   const [Password, setPassword] = useState("");
   const [Message, setMessage] = useState("");
   const [Errors, setErrors] = useState({name:"", username: "", password: "" });
-
+  const Navigate= useNavigate();
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
@@ -40,6 +40,9 @@ const RegisterUser = () => {
         }
       );
       setMessage(`${response.data.message}`);
+      setTimeout(()=>{
+        Navigate("/login");
+      },1000);
     } catch (error: any) {
       if (error.name === "ValidationError") {
         const validationErrors: any = {};
