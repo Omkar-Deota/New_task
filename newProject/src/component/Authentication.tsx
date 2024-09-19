@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
+import { useNavigate } from "react-router-dom";
 
 const Conditions = Yup.object().shape({
   username: Yup.string()
@@ -16,12 +17,15 @@ const Authentication = () => {
   const [Password, setPassword] = useState("");
   const [Message, setMessage] = useState("");
   const [Errors, setErrors] = useState({ username: "", password: "" });
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
+    setLoading(true);
+
     try {
       setErrors({ username: "", password: "" });
-
       await Conditions.validate(
         { username: Username, password: Password },
         { abortEarly: false }
@@ -34,10 +38,14 @@ const Authentication = () => {
           password: Password,
         }
       );
-      console.log(response)
       setMessage(`${response.data.message}`);
-      alert(`welcome ${response.data.name}`)
+
+      setTimeout(() => {
+        setLoading(false);
+        navigate("/dashboard");
+      }, 2000);
     } catch (error: any) {
+      setLoading(false); 
       if (error.name === "ValidationError") {
         const validationErrors: any = {};
         error.inner.forEach((err: any) => {
@@ -51,21 +59,22 @@ const Authentication = () => {
   };
 
   return (
-    <div className="flex justify-center items-center mt-20 sm:mt-5">
+    <div className="relative flex justify-center items-center mt-20 sm:mt-5">
       <div className="mt-20 border-neutral-700 border-2 rounded-lg px-5 py-5">
         <h2 className="text-3xl sm:text-5xl lg:text-5xl text-center my-8 tracking-widest">
           <span className="bg-gradient-to-r from-orange-300 to-orange-700 bg-clip-text text-transparent">
             Login
           </span>
         </h2>
-        <div className="flex justify-center items-center">
+
+        <div className={`${loading ? "blur-sm" : ""} transition duration-300`}>
           <form onSubmit={handleLogin} className="bg-transparent">
             <div className="ml-[3.25rem]">
               <label
                 htmlFor="username"
                 className="text-xl mx-auto px-3 py-3 text-orange-700 tracking-wider"
               >
-                Username :
+                Username:
               </label>
               <input
                 autoComplete="off"
@@ -73,8 +82,7 @@ const Authentication = () => {
                 id="username"
                 value={Username}
                 onChange={(e) => setUsername(e.target.value)}
-                className={`bg-transparent hover:border-neutral-600 text-xl tracking-wider text-neutral-400
-                `}
+                className={`bg-transparent hover:border-neutral-600 text-xl tracking-wider text-neutral-400`}
               />
               {Errors.username && (
                 <p className="text-neutral-500 mt-2">{Errors.username}</p>
@@ -85,16 +93,14 @@ const Authentication = () => {
                 htmlFor="password"
                 className="text-xl mx-auto px-3 py-3 text-orange-700 tracking-wider"
               >
-                Password :
+                Password:
               </label>
               <input
                 type="password"
                 id="password"
                 value={Password}
                 onChange={(e) => setPassword(e.target.value)}
-                className={`bg-transparent hover:border-neutral-600 text-xl tracking-wider text-neutral-400
-                
-                `}
+                className={`bg-transparent hover:border-neutral-600 text-xl tracking-wider text-neutral-400`}
                 autoComplete="off"
               />
               {Errors.password && (
@@ -113,6 +119,12 @@ const Authentication = () => {
           {Message && <p>{Message}</p>}
         </div>
       </div>
+
+      {loading && (
+        <div className="absolute inset-0 flex justify-center items-center bg-black bg-opacity-50">
+          <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-orange-500"></div>
+        </div>
+      )}
     </div>
   );
 };
