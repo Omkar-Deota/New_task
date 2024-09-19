@@ -20,6 +20,13 @@ const UserSchema = new mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
+const pricingOptionSchema = new mongoose.Schema({
+  title: { type: String, required: true },
+  price: { type: String, required: true },
+  features: { type: [String], required: true },
+});
+
+const PricingOption = mongoose.model("PricingOption", pricingOptionSchema);
 
 app.post("/register", async (req, res) => {
   const { username, password,name } = req.body;
@@ -62,7 +69,7 @@ app.post("/authenticate-user", async (req, res) => {
 
 app.get("/pricing-options", async(req, res)=>{
   try{
-    const data=await Pricing.find();
+    const data=await PricingOption.find();
     if(data){
       return res.status(200).json(data);
     }
