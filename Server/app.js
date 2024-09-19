@@ -70,6 +70,7 @@ app.post("/authenticate-user", async (req, res) => {
 app.get("/pricing-options", async(req, res)=>{
   try{
     const data=await PricingOption.find();
+    console.log(data);
       return res.json(data);
   }catch(error){
     res.status(500).json({message:"Error met"});
