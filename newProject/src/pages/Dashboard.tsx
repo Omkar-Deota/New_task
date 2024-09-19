@@ -15,6 +15,7 @@ const Dashboard = () => {
   const fetchPricingOptions = async () => {
     try {
       const response = await axios.get("https://virtuality-backend.onrender.com/pricing-options"); 
+      console.log(response.data)
       setPricingOptions(response.data); 
     } catch (error) {
       console.error("Error fetching pricing options:", error);
@@ -29,7 +30,7 @@ const Dashboard = () => {
       <Navbar />
       <div className="flex justify-center items-center text-2xl mt-10 sm:mt-5 sm:text-xl">
         <h2 className="text-3xl sm:text-2xl lg:text-3xl text-center tracking-wider">
-          <span className="bg-gradient-to-b from-blue-300 to-blue-700 bg-clip-text text-transparent">
+          <span className="bg-gradient-to-b from-blue-300 to-blue-900 bg-clip-text text-transparent text-3xl">
             {localStorage.getItem("newUser")}
           </span>
         </h2>

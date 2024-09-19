@@ -19,7 +19,6 @@ const Authentication = () => {
   const [Errors, setErrors] = useState({ username: "", password: "" });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const [items, setItems] = useState([]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
