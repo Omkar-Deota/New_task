@@ -3,6 +3,9 @@ import axios from "axios";
 import * as Yup from "yup";
 
 const Conditions = Yup.object().shape({
+  name: Yup.string()
+    .required("Name is required")
+    .min(6, "Name must be at least 6 characters long"),
   username: Yup.string()
     .required("Username is required")
     .min(6, "Username must be at least 6 characters long"),
@@ -11,32 +14,32 @@ const Conditions = Yup.object().shape({
     .min(6, "Password must be at least 6 characters long"),
 });
 
-const Authentication = () => {
+const RegisterUser = () => {
+  const [Name, setName] = useState("");
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
   const [Message, setMessage] = useState("");
-  const [Errors, setErrors] = useState({ username: "", password: "" });
+  const [Errors, setErrors] = useState({name:"", username: "", password: "" });
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      setErrors({ username: "", password: "" });
+      setErrors({ name:"" ,username: "", password: ""});
 
       await Conditions.validate(
-        { username: Username, password: Password },
+        { name: Name, username: Username, password: Password },
         { abortEarly: false }
       );
 
       const response = await axios.post(
-        "https://virtuality-backend.onrender.com/authenticate-user",
+        "https://virtuality-backend.onrender.com/register",
         {
+          name: Name,
           username: Username,
           password: Password,
         }
       );
-      console.log(response)
       setMessage(`${response.data.message}`);
-      alert(`welcome ${response.data.name}`)
     } catch (error: any) {
       if (error.name === "ValidationError") {
         const validationErrors: any = {};
@@ -60,6 +63,26 @@ const Authentication = () => {
         </h2>
         <div className="flex justify-center items-center">
           <form onSubmit={handleLogin} className="bg-transparent">
+          <div className="ml-[3.25rem]">
+              <label
+                htmlFor="name"
+                className="text-xl mx-auto px-3 py-3 text-orange-700 tracking-wider"
+              >
+                Name :
+              </label>
+              <input
+                autoComplete="off"
+                type="text"
+                id="name"
+                value={Name}
+                onChange={(e) => setName(e.target.value)}
+                className={`bg-transparent hover:border-neutral-600 text-xl tracking-wider text-neutral-400
+                `}
+              />
+              {Errors.username && (
+                <p className="text-neutral-500 mt-2">{Errors.username}</p>
+              )}
+            </div>
             <div className="ml-[3.25rem]">
               <label
                 htmlFor="username"
@@ -117,4 +140,4 @@ const Authentication = () => {
   );
 };
 
-export default Authentication;
+export default RegisterUser;

@@ -34,12 +34,12 @@ const Navbar = () => {
             <Link to="/login" className="py-2 px-3 border rounded-md">
               Sign In
             </Link>
-            <a
-              href="#"
+            <Link
+              to="/register"
               className="bg-gradient-to-r from-orange-500 to-orange-800 py-2 px-3 rounded-md"
             >
               Create an account
-            </a>
+            </Link>
           </div>
           <div className="lg:hidden md:flex flex-col justify-end">
             <button onClick={toggleNavbar}>
@@ -57,15 +57,15 @@ const Navbar = () => {
               ))}
             </ul>
             <div className="flex space-x-6">
-              <a href="#" className="py-2 px-3 border rounded-md">
+              <Link to="/login" className="py-2 px-3 border rounded-md">
                 Sign In
-              </a>
-              <a
-                href="#"
+              </Link>
+              <Link
+                to="/register"
                 className="py-2 px-3 rounded-md bg-gradient-to-r from-orange-500 to-orange-800"
               >
                 Create an account
-              </a>
+              </Link>
             </div>
           </div>
         )}

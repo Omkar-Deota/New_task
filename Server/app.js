@@ -13,6 +13,7 @@ mongoose
   .catch((err) => console.log(err));
 
 const UserSchema = new mongoose.Schema({
+  name: { type: String, required: true},
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
@@ -21,12 +22,13 @@ const User = mongoose.model("User", UserSchema);
 
 
 app.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password,name } = req.body;
 
   try {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
+        name,
       username,
       password: hashedPassword,
     });
@@ -51,8 +53,8 @@ app.post("/authenticate-user", async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({message:"invalid password"});
     }
-
-    res.json({ message: "Successfully logged in" });
+    const name=user.name;
+    res.json({ message: "Successfully logged in", name});
   } catch (err) {
     res.status(500).json({ message: "Something went wrong", error: err });
   }
