@@ -38,10 +38,10 @@ const Authentication = () => {
           password: Password,
         }
       );
+      setLoading(false);
       setMessage(`${response.data.message}`);
 
       setTimeout(() => {
-        setLoading(false);
         navigate("/dashboard");
       }, 2000);
     } catch (error: any) {
