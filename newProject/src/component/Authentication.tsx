@@ -29,7 +29,7 @@ const Authentication = () => {
       );
 
       const response = await axios.post(
-        "https://virtuality-backend.onrender.com/register",
+        "https://virtuality-backend.onrender.com/authenticate-user",
         {
           username: Username,
           password: Password,
