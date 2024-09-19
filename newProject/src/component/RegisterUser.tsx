@@ -63,7 +63,7 @@ const RegisterUser = () => {
         </h2>
         <div className="flex justify-center items-center">
           <form onSubmit={handleLogin} className="bg-transparent">
-          <div className="ml-[3.25rem]">
+          <div className="ml-[3.25rem] mb-2">
               <label
                 htmlFor="name"
                 className="text-xl mx-auto px-3 py-3 text-orange-700 tracking-wider"
