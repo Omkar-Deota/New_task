@@ -74,7 +74,7 @@ app.post("/authenticate-user", async (req, res) => {
   }
 });
 
-// Fetch Pricing Options (using Mongoose)
+// Fetch pricing option
 app.get("/pricing-options", async (req, res) => {
   try {
     const pricingOptions = await PricingOption.find({});
