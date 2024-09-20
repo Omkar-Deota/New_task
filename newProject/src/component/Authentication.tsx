@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-
+const API_URL = import.meta.env.VITE_api_base
 const Conditions = Yup.object().shape({
   username: Yup.string()
     .required("Username is required")
@@ -32,7 +32,7 @@ const Authentication = () => {
       );
 
       const response = await axios.post(
-        "https://virtuality-backend.onrender.com/authenticate-user",
+        `${API_URL}/authenticate-user`,
         {
           username: Username,
           password: Password,

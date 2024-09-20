@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+const API_URL = import.meta.env.VITE_api_base
 const Conditions = Yup.object().shape({
   name: Yup.string()
     .required("Name is required")
@@ -32,7 +33,7 @@ const RegisterUser = () => {
       );
 
       const response = await axios.post(
-        "https://virtuality-backend.onrender.com/register",
+        `${API_URL}/register`,
         {
           name: Name,
           username: Username,

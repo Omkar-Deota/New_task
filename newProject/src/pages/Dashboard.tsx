@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-
-import Navbar from "../component/Navbar";
+const API_URL = import.meta.env.VITE_api_base
 import { CheckCircle2 } from "lucide-react";
 import axios from "axios";
+import LoggedinBar from "../component/LoggedinBar";
 interface PricingOption {
     title: string;
     price: string;
@@ -14,7 +14,7 @@ const Dashboard = () => {
   
   const fetchPricingOptions = async () => {
     try {
-      const response = await axios.get("https://virtuality-backend.onrender.com/pricing-options"); 
+      const response = await axios.get(`${API_URL}/pricing-options`); 
       console.log(response.data)
       setPricingOptions(response.data); 
     } catch (error) {
@@ -27,18 +27,15 @@ const Dashboard = () => {
   }, []);
   return (
     <>
-      <Navbar />
+      <LoggedinBar/>
       <div className="max-w-6xl mx-auto pt-10 px-5">
-      <div className="flex justify-center items-center text-2xl mt-10 sm:mt-5 sm:text-xl">
-        <h2 className="text-3xl sm:text-2xl lg:text-3xl text-center tracking-wider">
-          <span className="bg-gradient-to-b from-blue-100 to-blue-950 bg-clip-text text-transparent text-3xl sm:text-xl">
-            {localStorage.getItem("newUser")}
-          </span>
+        <h2 className="text-center tracking-wider bg-gradient-to-b from-blue-100 to-blue-500 bg-clip-text text-transparent sm:text-xl lg:text-5xl">
+            Hey, {localStorage.getItem("newUser")} welcome!!
         </h2>
-      </div>
       <div className="mt-20" id="ps">
-      <h2 className="text-3xl sm:text-5xl lg:text-6xl text-center my-8 tracking-widest">
-      <span className="bg-gradient-to-b from-blue-300 to-blue-900 bg-clip-text text-transparent text-3xl shadow-xl ">
+        <div className="w-full border-neutral-500 border-2"></div>
+      <h2 className=" sm:text-3xl lg:text-5xl text-center my-8 tracking-widest">
+      <span className="bg-gradient-to-b from-blue-300 to-blue-500 bg-clip-text text-transparent text-5xl shadow-xl ">
             Choose your plan
           </span>
       </h2>
