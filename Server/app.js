@@ -3,53 +3,45 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
 const cors = require("cors");
 const bodyParser = require("body-parser");
+
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
+const uri = "mongodb+srv://omkar_2023:Magureinc2024@cluster0.fksi8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+
+// Connect to MongoDB using Mongoose
 mongoose
-  .connect("mongodb+srv://omkar_2023:Magureinc2024@cluster0.fksi8.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0", { useNewUrlParser: true, useUnifiedTopology: true })
+  .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
+// User Schema
 const UserSchema = new mongoose.Schema({
-  name: { type: String, required: true},
+  name: { type: String, required: true },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
 });
 
 const User = mongoose.model("User", UserSchema);
 
+// PricingOption Schema
 const pricingOptionSchema = new mongoose.Schema({
   title: { type: String, required: true },
   price: { type: String, required: true },
   features: { type: [String], required: true },
 });
 
-
 const PricingOption = mongoose.model("PricingOption", pricingOptionSchema);
-for(let i=1;i<=30;i++){
-  const data= new PricingOption({
-    title: "Basic",
-    price: `$${i}*10`,
-    features:[
-      "Feature 1",
-      "Feature 2",
-      "Feature 3"
-  
-    ]
-  
-  });
-  data.save();
-  }
+
+// User Registration
 app.post("/register", async (req, res) => {
-  const { username, password,name } = req.body;
+  const { username, password, name } = req.body;
 
   try {
-
     const hashedPassword = await bcrypt.hash(password, 10);
     const newUser = new User({
-        name,
+      name,
       username,
       password: hashedPassword,
     });
@@ -60,37 +52,37 @@ app.post("/register", async (req, res) => {
   }
 });
 
+// User Authentication
 app.post("/authenticate-user", async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    
     const user = await User.findOne({ username });
     if (!user) {
-      return res.status(400).json({message:"invalid username"});
+      return res.status(400).json({ message: "Invalid username" });
     }
 
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.status(400).json({message:"invalid password"});
+      return res.status(400).json({ message: "Invalid password" });
     }
-    const name=user.name;
-    res.json({ message: "Successfully logged in", name});
+
+    const name = user.name;
+    res.json({ message: "Successfully logged in", name });
   } catch (err) {
     res.status(500).json({ message: "Something went wrong", error: err });
   }
 });
 
-
-app.get("/pricing-options", async(req, res)=>{
-  try{
-    const data=await PricingOption.find({});
-    console.log(data);
-    return res.json(data);
-  }catch(error){
-    res.status(500).json({message:"Error met"});
+// Fetch Pricing Options (using Mongoose)
+app.get("/pricing-options", async (req, res) => {
+  try {
+    const pricingOptions = await PricingOption.find({});
+    res.json(pricingOptions);
+  } catch (error) {
+    res.status(500).json({ message: "Error fetching pricing options", error });
   }
-})
+});
 
 const PORT = 3000;
 app.listen(PORT, () => {
