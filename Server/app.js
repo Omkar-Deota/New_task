@@ -26,8 +26,22 @@ const pricingOptionSchema = new mongoose.Schema({
   features: { type: [String], required: true },
 });
 
-const PricingOption = mongoose.model("PricingOption", pricingOptionSchema);
 
+const PricingOption = mongoose.model("PricingOption", pricingOptionSchema);
+for(let i=1;i<=30;i++){
+  const data= new PricingOption({
+    title: "Basic",
+    price: `$${i}*10`,
+    features:[
+      "Feature 1",
+      "Feature 2",
+      "Feature 3"
+  
+    ]
+  
+  });
+  data.save();
+  }
 app.post("/register", async (req, res) => {
   const { username, password,name } = req.body;
 
@@ -66,6 +80,7 @@ app.post("/authenticate-user", async (req, res) => {
     res.status(500).json({ message: "Something went wrong", error: err });
   }
 });
+
 
 app.get("/pricing-options", async(req, res)=>{
   try{
