@@ -28,7 +28,7 @@ const Dashboard = () => {
   return (
     <>
       <Navbar />
-      <div className="max-w-6 mx-auto">
+      <div className="max-w-6xl mx-auto pt-10 px-5">
       <div className="flex justify-center items-center text-2xl mt-10 sm:mt-5 sm:text-xl">
         <h2 className="text-3xl sm:text-2xl lg:text-3xl text-center tracking-wider">
           <span className="bg-gradient-to-b from-blue-100 to-blue-950 bg-clip-text text-transparent text-3xl sm:text-xl">
