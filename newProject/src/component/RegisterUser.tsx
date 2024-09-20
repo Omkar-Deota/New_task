@@ -62,7 +62,7 @@ const RegisterUser = () => {
       <div className="mt-20 border-neutral-700 border-2 rounded-lg px-5 py-5">
         <h2 className="text-3xl sm:text-5xl lg:text-5xl text-center my-8 tracking-widest">
           <span className="bg-gradient-to-r from-orange-300 to-orange-700 bg-clip-text text-transparent">
-            Login
+            Sign Up
           </span>
         </h2>
         <div className="flex justify-center items-center">
