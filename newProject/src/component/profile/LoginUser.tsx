@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
+import React, { useState } from "react";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-const API_URL = import.meta.env.VITE_api_base
+import useLoginApi from "../../hooks/api/userLoginApi";
 const Conditions = Yup.object().shape({
   username: Yup.string()
     .required("Username is required")
@@ -13,6 +12,7 @@ const Conditions = Yup.object().shape({
 });
 
 const Authentication = () => {
+  const { loginUser } = useLoginApi();
   const [Username, setUsername] = useState("");
   const [Password, setPassword] = useState("");
   const [Message, setMessage] = useState("");
@@ -31,16 +31,13 @@ const Authentication = () => {
         { abortEarly: false }
       );
 
-      const response = await axios.post(
-        `${API_URL}/authenticate-user`,
-        {
-          username: Username,
-          password: Password,
-        }
-      );
+      const response: any = await loginUser(Username, Password);
+
+
       setLoading(false);
-      setMessage(`${response.data.message}`);
-      const newUser=response.data.name;
+      console.log(response)
+      setMessage(`${response.data?.message}`);
+      const newUser= response.data?.name;
       localStorage.setItem("newUser",newUser);
       setTimeout(() => {
         navigate("/dashboard");

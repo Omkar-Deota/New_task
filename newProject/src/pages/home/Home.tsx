@@ -1,10 +1,10 @@
 import React from 'react'
-import DataSection from "../component/DataSection"
-import Feature from "../component/Feature"
-import Footer from "../component/Footer"
-import Navbar from "../component/Navbar"
-import Pricing from "../component/Pricing"
-import Workflow from "../component/Workflow"
+import DataSection from "../../component/common/DataSection"
+import Feature from "../../component/common/Feature"
+import Footer from "../../component/common/Footer"
+import Navbar from "../../component/common/Navbar"
+import Pricing from "../../component/common/Pricing"
+import Workflow from "../../component/common/Workflow"
 
 const Home = () => {
   return (

@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-const API_URL = import.meta.env.VITE_api_base
 import { CheckCircle2 } from "lucide-react";
-import axios from "axios";
-import LoggedinBar from "../component/LoggedinBar";
+import useSubscriptionApi from "../../hooks/api/useSubscriptionApi";
+import LoggedinBar from "../../component/common/LoggedinBar";
 interface PricingOption {
     title: string;
     price: string;
@@ -11,12 +10,11 @@ interface PricingOption {
   
 const Dashboard = () => {
     const [pricingOptions, setPricingOptions] = useState<PricingOption[]>([]);
-  
+    const {getAllSubscription} = useSubscriptionApi();
   const fetchPricingOptions = async () => {
     try {
-      const response = await axios.get(`${API_URL}/pricing-options`); 
-      console.log(response.data)
-      setPricingOptions(response.data); 
+      const response= await getAllSubscription();
+      setPricingOptions(response.data as PricingOption[]); 
     } catch (error) {
       console.error("Error fetching pricing options:", error);
     }

@@ -1,7 +1,7 @@
 import React from 'react'
-import Navbar from '../component/Navbar'
-import Footer from '../component/Footer'
-import Authentication from '../component/Authentication'
+import Navbar from '../../component/common/Navbar'
+import Footer from '../../component/common/Footer'
+import Authentication from '../../component/profile/LoginUser'
 const Registration = () => {
   return (
     <>

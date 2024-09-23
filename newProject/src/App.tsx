@@ -1,10 +1,12 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
-import Home from "./pages/Home"
-import Registration from "./pages/Login"
-import Register from "./pages/Register"
-import Dashboard from "./pages/Dashboard"
+import { HttpMethodContextProvider } from "./context/HttpMethodProvider"
+import Home from "./pages/home/Home"
+import Registration from "./pages/authentiction/Login"
+import Register from "./pages/authentiction/Register"
+import Dashboard from "./pages/user/Dashboard"
 function App() {
   return (
+    <HttpMethodContextProvider>
     <Router>
       <Routes>
         <Route path="/" element={<Home/>} />
@@ -13,6 +15,7 @@ function App() {
         <Route path="/dashboard" element= {<Dashboard/>} />
       </Routes>
     </Router>
+    </HttpMethodContextProvider>
   )
 }
 
