@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import useLoginApi from "../../hooks/api/userLoginApi";
+import { useUserContext } from "../../context/userProvider";
 const Conditions = Yup.object().shape({
   username: Yup.string()
     .required("Username is required")
@@ -18,8 +19,8 @@ const Authentication = () => {
   const [Message, setMessage] = useState("");
   const [Errors, setErrors] = useState({ username: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const {setUserName} = useUserContext();
   const navigate = useNavigate();
-
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -38,7 +39,7 @@ const Authentication = () => {
       console.log(response)
       setMessage(`${response.data?.message}`);
       const newUser= response.data?.name;
-      localStorage.setItem("newUser",newUser);
+      setUserName(newUser);
       setTimeout(() => {
         navigate("/dashboard");
       }, 2000);

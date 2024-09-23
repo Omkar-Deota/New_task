@@ -2,12 +2,14 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import logo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useUserContext } from "../../context/userProvider";
 
-const LoggedinBar = () => {
+const LoggedInBar = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
   const Navigate = useNavigate();
+  const { logout } = useUserContext();
   const handleLogout=()=>{
-    localStorage.clear();
+    logout();
     Navigate("/")
   }
   const toggleNavbar = () => {
@@ -68,4 +70,4 @@ const LoggedinBar = () => {
   );
 };
 
-export default LoggedinBar;
+export default LoggedInBar;

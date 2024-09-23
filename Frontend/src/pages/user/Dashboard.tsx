@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import useSubscriptionApi from "../../hooks/api/useSubscriptionApi";
-import LoggedinBar from "../../component/common/LoggedinBar";
+import LoggedInBar from "../../component/common/LoggedinBar";
+import { useUserContext } from "../../context/userProvider";
 interface PricingOption {
     title: string;
     price: string;
@@ -19,16 +20,16 @@ const Dashboard = () => {
       console.error("Error fetching pricing options:", error);
     }
   };
-
+  const {userName} = useUserContext();
   useEffect(() => {
     fetchPricingOptions();
   }, []);
   return (
     <>
-      <LoggedinBar/>
+      <LoggedInBar/>
       <div className="max-w-6xl mx-auto pt-10 px-5">
         <h2 className="text-center tracking-wider bg-gradient-to-b from-blue-100 to-blue-500 bg-clip-text text-transparent sm:text-xl lg:text-5xl">
-            Hey, {localStorage.getItem("newUser")} welcome!!
+            Hey, {userName} welcome!!
         </h2>
       <div className="mt-20" id="ps">
         <div className="w-full border-neutral-500 border-2"></div>
