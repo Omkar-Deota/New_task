@@ -14,10 +14,10 @@ const LoggedinBar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
   };
    const navItems = [
-    { label: "Features", href: "#fs" },
-    { label: "Workflow", href: "#ds" },
-    { label: "Pricing", href: "#ps" },
-    { label: "Contacts", href: "#ct" },
+    { label: "My Subscriptions", href: "#" },
+    { label: "Performance", href: "#" },
+    { label: "NewsLetter", href: "#" },
+    { label: "Contribute", href: "#" },
   ];
   return (
     <nav className="sticky top-0 z-50 py-3 backdrop-blur-lg border-b border-neutral-700/80">
