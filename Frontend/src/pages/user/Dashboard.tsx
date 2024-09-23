@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { CheckCircle2 } from "lucide-react";
 import useSubscriptionApi from "../../hooks/api/useSubscriptionApi";
-import LoggedInBar from "../../component/common/LoggedinBar";
-import { useUserContext } from "../../context/userProvider";
+import LoggedInBar from "../../component/common/LoggedInBar";
+import { useUserContext } from "../../context/UserProvider";
 interface PricingOption {
     title: string;
     price: string;

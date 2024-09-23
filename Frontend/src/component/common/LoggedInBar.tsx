@@ -2,7 +2,7 @@ import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import logo from "../../assets/logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserContext } from "../../context/userProvider";
+import { useUserContext } from "../../context/UserProvider";
 
 const LoggedInBar = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
@@ -16,10 +16,10 @@ const LoggedInBar = () => {
     setMobileDrawerOpen(!mobileDrawerOpen);
   };
    const navItems = [
-    { label: "My Subscriptions", href: "#" },
-    { label: "Performance", href: "#" },
-    { label: "NewsLetter", href: "#" },
-    { label: "Contribute", href: "#" },
+    { label: "My Subscriptions"},
+    { label: "Performance"},
+    { label: "NewsLetter"},
+    { label: "Contribute"},
   ];
   return (
     <nav className="sticky top-0 z-50 py-3 backdrop-blur-lg border-b border-neutral-700/80">

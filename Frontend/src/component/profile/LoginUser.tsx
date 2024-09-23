@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
 import useLoginApi from "../../hooks/api/userLoginApi";
-import { useUserContext } from "../../context/userProvider";
+import { useUserContext } from "../../context/UserProvider";
 const Conditions = Yup.object().shape({
   username: Yup.string()
     .required("Username is required")

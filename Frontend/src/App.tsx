@@ -4,7 +4,7 @@ import Home from "./pages/home/Home"
 import Registration from "./pages/authentiction/Login"
 import Register from "./pages/authentiction/Register"
 import Dashboard from "./pages/user/Dashboard"
-import { UserProvider } from "./context/userProvider"
+import { UserProvider } from "./context/UserProvider"
 function App() {
   return (
     <HttpMethodContextProvider>
