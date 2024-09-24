@@ -1,10 +1,10 @@
 {
-    "watch": ["src"], 
-    "ext": "ts,json",
-    "env": {
-      "NODE_ENV": "local"
-    },
-    "ignore": ["node_modules"],
-    "exec": "ts-node ./src/index.ts"
-  }
-  
+  "watch": [
+    "src"
+  ],
+  "ext": "ts",
+  "env": {
+    "NODE_ENV": "local"
+  },
+  "exec": "ts-node -r dotenv/config ./src/index.ts"
+}

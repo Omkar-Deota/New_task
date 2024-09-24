@@ -8,7 +8,7 @@ const useLoginApi = () => {
     username: string,
     password:string,
     showApiLoader = true): Promise<ApiResponseData> => {
-    const response = await post('/authenticate-user', {username, password}, showApiLoader);
+    const response = await post('/users/authenticate-user', {username, password}, showApiLoader);
 
     return response;
   };

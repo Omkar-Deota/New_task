@@ -2,51 +2,34 @@ import dotenv from 'dotenv';
 dotenv.config({
   path: "../.env", 
 }); 
-import express, { Request, Response } from 'express'; 
+import env from './config/environment.config'
+import express, { Request, Response } from 'express';
 import mongoose, { Schema, Document } from 'mongoose';
-import cors from 'cors'; 
-import authRoutes from './api/auth'; 
-import DB_URI from './config/env.config'
+import cors from 'cors';
+import { subscriptionRoute, userRoutes } from './api/index';
+
 const app = express();
+
+// Middlewares
 app.use(cors());
 app.use(express.json());
-// Connect to MongoDB using Mongoose
+
+// Routes
+
 mongoose
-  .connect(DB_URI.db)
+  .connect(env.db)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log("CONNECTION FAILED", err));
 
-// Interface for PricingOption schema
-interface IPricingOption extends Document {
-  title: string;
-  price: string;
-  features: string[];
-}
+app.use('/users', userRoutes);
+app.use('/subscription', subscriptionRoute);
 
-// PricingOption Schema
-const pricingOptionSchema = new Schema<IPricingOption>({
-  title: { type: String, required: true },
-  price: { type: String, required: true },
-  features: { type: [String], required: true },
-});
-
-const PricingOption = mongoose.model<IPricingOption>("PricingOption", pricingOptionSchema);
-
-app.use('/api/auth', authRoutes);
-
-// Fetch pricing option
-app.get("/pricing-options", async (req: Request, res: Response) => {
-  try {
-    const pricingOptions = await PricingOption.find({});
-    res.json(pricingOptions);
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching pricing options", error });
-  }
-});
+app.get('/', (_req: Request, res: Response) =>
+  res.status(200).send("Hello Dev's"),
+);
 
 app.all('*', (_req: Request, res: Response) =>
   res.status(404).send('Route does not exists'),
 );
 
-
-export default app; 
+export default app;

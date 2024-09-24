@@ -5,7 +5,7 @@ const useSubscriptionApi = () => {
     const { get } = useHttpMethodContext();
 
   const getAllSubscription = async (showApiLoader = true): Promise<ApiResponseData> => {
-    const response = await get('/pricing-options', showApiLoader);
+    const response = await get('/subscription/plans', showApiLoader);
 
     // Add a parser if required
 

@@ -1,32 +1,32 @@
-import React, { useState } from "react";
-import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
-import useLoginApi from "../../hooks/api/userLoginApi";
-import { useUserContext } from "../../context/UserProvider";
+import React, { useState } from 'react';
+import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
+import useLoginApi from '../../hooks/api/userLoginApi';
+import { useUserContext } from '../../context/UserProvider';
 const Conditions = Yup.object().shape({
   username: Yup.string()
-    .required("Username is required")
-    .min(6, "Username must be at least 6 characters long"),
+    .required('Username is required')
+    .min(6, 'Username must be at least 6 characters long'),
   password: Yup.string()
-    .required("Password is required")
-    .min(6, "Password must be at least 6 characters long"),
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters long')
 });
 
 const Authentication = () => {
   const { loginUser } = useLoginApi();
-  const [Username, setUsername] = useState("");
-  const [Password, setPassword] = useState("");
-  const [Message, setMessage] = useState("");
-  const [Errors, setErrors] = useState({ username: "", password: "" });
+  const [Username, setUsername] = useState('');
+  const [Password, setPassword] = useState('');
+  const [Message, setMessage] = useState('');
+  const [Errors, setErrors] = useState({ username: '', password: '' });
   const [loading, setLoading] = useState(false);
-  const {setUserName} = useUserContext();
+  const { setUserName } = useUserContext();
   const navigate = useNavigate();
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
     try {
-      setErrors({ username: "", password: "" });
+      setErrors({ username: '', password: '' });
       await Conditions.validate(
         { username: Username, password: Password },
         { abortEarly: false }
@@ -34,25 +34,24 @@ const Authentication = () => {
 
       const response: any = await loginUser(Username, Password);
 
-
       setLoading(false);
-      console.log(response)
+      console.log(response);
       setMessage(`${response.data?.message}`);
-      const newUser= response.data?.name;
+      const newUser = response.data?.name;
       setUserName(newUser);
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate('/dashboard');
       }, 2000);
     } catch (error: any) {
-      setLoading(false); 
-      if (error.name === "ValidationError") {
+      setLoading(false);
+      if (error.name === 'ValidationError') {
         const validationErrors: any = {};
         error.inner.forEach((err: any) => {
           validationErrors[err.path] = err.message;
         });
         setErrors(validationErrors);
       } else {
-        setMessage("Oops! Something went wrong, please try again.");
+        setMessage('Oops! Something went wrong, please try again.');
       }
     }
   };
@@ -66,7 +65,7 @@ const Authentication = () => {
           </span>
         </h2>
 
-        <div className={`${loading ? "blur-sm" : ""} transition duration-300`}>
+        <div className={`${loading ? 'blur-sm' : ''} transition duration-300`}>
           <form onSubmit={handleLogin} className="bg-transparent">
             <div className="ml-[3.25rem]">
               <label

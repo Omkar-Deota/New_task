@@ -1,59 +1,60 @@
-import React, { useState } from "react";
-import axios from "axios";
-import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
-import envConfig from "../../config/env.config"
+import React, { useState } from 'react';
+import axios from 'axios';
+import * as Yup from 'yup';
+import { useNavigate } from 'react-router-dom';
+import envConfig from '../../config/env.config';
 const Conditions = Yup.object().shape({
   name: Yup.string()
-    .required("Name is required")
-    .min(6, "Name must be at least 6 characters long"),
+    .required('Name is required')
+    .min(6, 'Name must be at least 6 characters long'),
   username: Yup.string()
-    .required("Username is required")
-    .min(6, "Username must be at least 6 characters long"),
+    .required('Username is required')
+    .min(6, 'Username must be at least 6 characters long'),
   password: Yup.string()
-    .required("Password is required")
-    .min(6, "Password must be at least 6 characters long"),
+    .required('Password is required')
+    .min(6, 'Password must be at least 6 characters long')
 });
 
 const RegisterUser = () => {
-  const [Name, setName] = useState("");
-  const [Username, setUsername] = useState("");
-  const [Password, setPassword] = useState("");
-  const [Message, setMessage] = useState("");
-  const [Errors, setErrors] = useState({name:"", username: "", password: "" });
-  const Navigate= useNavigate();
+  const [Name, setName] = useState('');
+  const [Username, setUsername] = useState('');
+  const [Password, setPassword] = useState('');
+  const [Message, setMessage] = useState('');
+  const [Errors, setErrors] = useState({
+    name: '',
+    username: '',
+    password: ''
+  });
+  const Navigate = useNavigate();
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      setErrors({ name:"" ,username: "", password: ""});
+      setErrors({ name: '', username: '', password: '' });
 
       await Conditions.validate(
         { name: Name, username: Username, password: Password },
         { abortEarly: false }
       );
 
-      const response = await axios.post(
-        `${envConfig.API_URL}/register`,
-        {
-          name: Name,
-          username: Username,
-          password: Password,
-        }
-      );
-      console.log("error here")
+      const response = await axios.post(`${envConfig.API_URL}/users/register`, {
+        name: Name,
+        username: Username,
+        password: Password
+      });
+      console.log('error here');
       setMessage(`${response.data.message}`);
-      setTimeout(()=>{
-        Navigate("/login");
-      },1000);
+      setTimeout(() => {
+        Navigate('/login');
+      }, 1000);
     } catch (error: any) {
-      if (error.name === "ValidationError") {
+      if (error.name === 'ValidationError') {
         const validationErrors: any = {};
         error.inner.forEach((err: any) => {
           validationErrors[err.path] = err.message;
         });
         setErrors(validationErrors);
       } else {
-        setMessage("Oops! Something went wrong, please try again.");
+        setMessage('Oops! Something went wrong, please try again.');
       }
     }
   };
@@ -68,7 +69,7 @@ const RegisterUser = () => {
         </h2>
         <div className="flex justify-center items-center">
           <form onSubmit={handleLogin} className="bg-transparent">
-          <div className="ml-[3.25rem] mb-2">
+            <div className="ml-[3.25rem] mb-2">
               <label
                 htmlFor="name"
                 className="text-xl mx-auto px-3 py-3 text-orange-700 tracking-wider"
