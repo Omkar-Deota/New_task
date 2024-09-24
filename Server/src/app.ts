@@ -15,9 +15,9 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-
+const uri= String(env.db);
 mongoose
-  .connect(env.db)
+  .connect(uri)
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log("CONNECTION FAILED", err));
 
