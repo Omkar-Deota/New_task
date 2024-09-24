@@ -16,6 +16,7 @@ app.use(express.json());
 
 // Routes
 const uri= String(env.db);
+console.log(uri)
 mongoose
   .connect(uri)
   .then(() => console.log("MongoDB connected"))
