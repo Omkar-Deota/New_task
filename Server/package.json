@@ -30,6 +30,7 @@
   },
   "name": "server",
   "version": "1.0.0",
+  "type":"module",
   "main": "app.js",
   "scripts": {
     "dev": "nodemon -r dotenv/config src/index.ts",
