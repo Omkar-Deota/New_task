@@ -5,7 +5,8 @@
   "scripts": {
     "start": "ts-node src/index.ts",
     "dev": "nodemon",
-    "build": "tsc"
+    "build": "tsc",
+    "stage": "tsc && git status && git add ."
   },
   "keywords": [],
   "author": "Magure",
