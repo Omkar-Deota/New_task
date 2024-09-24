@@ -40,6 +40,7 @@ const RegisterUser = () => {
           password: Password,
         }
       );
+      console.log("error here")
       setMessage(`${response.data.message}`);
       setTimeout(()=>{
         Navigate("/login");

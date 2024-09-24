@@ -1,5 +1,4 @@
-const mongoose = require('mongoose')
-const bcrypt = require('bcryptjs')
+import mongoose from "mongoose";
 
 const UserSchema = new mongoose.Schema({
     name: { type: String, required: true },
@@ -15,5 +14,6 @@ const UserSchema = new mongoose.Schema({
 
 // });
   
-module.exports = mongoose.model("User", UserSchema);
+export default mongoose.model("User", UserSchema);
+
   
