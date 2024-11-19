@@ -32,16 +32,19 @@ const Authentication = () => {
         { abortEarly: false }
       );
 
-      const response: any = await loginUser(Username, Password);
-
-      setLoading(false);
-      console.log(response);
-      setMessage(`${response.data?.message}`);
-      const newUser = response.data?.name;
-      setUserName(newUser);
-      setTimeout(() => {
+      if (Username === 'demo_login' && Password === 'demo_login') {
         navigate('/dashboard');
-      }, 2000);
+      } else {
+        const response: any = await loginUser(Username, Password);
+        setLoading(false);
+        console.log(response);
+        setMessage(`${response.data?.message}`);
+        const newUser = response.data?.name;
+        setUserName(newUser);
+        setTimeout(() => {
+          navigate('/dashboard');
+        }, 2000);
+      }
     } catch (error: any) {
       setLoading(false);
       if (error.name === 'ValidationError') {
@@ -111,6 +114,9 @@ const Authentication = () => {
             >
               Dive-In
             </button>
+            <p className="text-center text-sm text-slate-500">
+              Demo login: Username - demo_login, Password - demo_login
+            </p>
           </form>
         </div>
         <div className="flex justify-center items-center text-neutral-700 lg:text-xl sm:text-sm">
