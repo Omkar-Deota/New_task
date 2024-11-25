@@ -24,6 +24,7 @@ const Authentication = () => {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
+    console.log('ehre');
 
     try {
       setErrors({ username: '', password: '' });
@@ -32,19 +33,16 @@ const Authentication = () => {
         { abortEarly: false }
       );
 
-      if (Username === 'demo_login' && Password === 'demo_login') {
+      console.log('api called');
+      const response: any = await loginUser(Username, Password);
+      setLoading(false);
+      console.log(response);
+      setMessage(`${response.data?.message}`);
+      const newUser = response.data?.name;
+      setUserName(newUser);
+      setTimeout(() => {
         navigate('/dashboard');
-      } else {
-        const response: any = await loginUser(Username, Password);
-        setLoading(false);
-        console.log(response);
-        setMessage(`${response.data?.message}`);
-        const newUser = response.data?.name;
-        setUserName(newUser);
-        setTimeout(() => {
-          navigate('/dashboard');
-        }, 2000);
-      }
+      }, 2000);
     } catch (error: any) {
       setLoading(false);
       if (error.name === 'ValidationError') {

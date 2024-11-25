@@ -31,16 +31,19 @@ const RegisterUser = () => {
     try {
       setErrors({ name: '', username: '', password: '' });
 
-      await Conditions.validate(
-        { name: Name, username: Username, password: Password },
-        { abortEarly: false }
+      console.log("before api")
+      // await Conditions.validate(
+      //   { name: Name, username: Username, password: Password },
+      //   { abortEarly: false }
+      // );
+      const response = await axios.post(
+        `http://localhost:3000/users/register`,
+        {
+          name: Name,
+          username: Username,
+          password: Password
+        }
       );
-
-      const response = await axios.post(`${envConfig.API_URL}/users/register`, {
-        name: Name,
-        username: Username,
-        password: Password
-      });
       console.log('error here');
       setMessage(`${response.data.message}`);
       setTimeout(() => {
